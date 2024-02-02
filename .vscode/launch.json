@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SandboxApplication",
+            "request": "launch",
+            "mainClass": "com.example.sandbox.sandbox.SandboxApplication",
+            "projectName": "sandbox"
+        },
+        {
+            "type": "java",
             "name": "Run with AppMap",
             "request": "launch",
             "mainClass": "",
