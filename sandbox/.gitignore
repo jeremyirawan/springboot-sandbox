@@ -37,3 +37,6 @@ sandbox.log
 
 ### Properties and Configuration Files ###
 @*.properties
+
+sandbox/src/main/resources/application.properties
+sandbox/sandbox.log
