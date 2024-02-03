@@ -12,5 +12,6 @@
     "sonarlint.connectedMode.project": {
         "connectionId": "jeremy-irawan",
         "projectKey": "jeremyirawan_springboot-sandbox"
-    }
+    },
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
