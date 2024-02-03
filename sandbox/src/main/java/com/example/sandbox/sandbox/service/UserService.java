@@ -1,13 +1,19 @@
 package com.example.sandbox.sandbox.service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
 import com.example.sandbox.sandbox.dto.UserDto;
 import com.example.sandbox.sandbox.model.User;
 import com.example.sandbox.sandbox.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.UUID;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class UserService {
@@ -16,15 +22,30 @@ public class UserService {
 
     public List<User> getAllUsers() {
         // Implement logic to return a maximum of 10 users
+        Pageable limit = PageRequest.of(0, 10); // Page number is 0 (first page), limit is 10
+        return userRepository.findAll(limit).getContent();
     }
 
     public User saveUser(UserDto userDto) {
-        // Implement logic to save user to the database
+        // Use the User.Builder to create a new User instance
+        User user = new User.Builder()
+            .withFullname(userDto.getFullname())
+            .withDateOfBirth(userDto.getDateOfBirth())
+            .withGender(userDto.getGender())
+            // ... set other properties from userDto using the builder methods ...
+            .build();
+
+        // Save the User entity to the database
+        User savedUser = userRepository.save(user);
+
+        // Return the saved User entity
+        return savedUser;
     }
 
     public User getUserById(UUID userId) {
-        // Implement logic to retrieve a user by ID
+        Optional<User> user = userRepository.findById(userId);
 
-        return User;
+        // Return the user if found, or handle the case where the user is not found
+        return user.orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
     }
 }
